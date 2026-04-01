@@ -8,7 +8,8 @@ st.set_page_config(page_title="Dashboard Películas", layout="wide")
 
 # Firebase
 if not firebase_admin._apps:
-    cred = credentials.Certificate("firebase-key.json")
+    key_dict = st.secrets["gcp_service_account"]
+    cred = credentials.Certificate(key_dict)
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
