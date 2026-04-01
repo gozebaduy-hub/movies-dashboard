@@ -7,8 +7,17 @@ from firebase_admin import credentials, firestore
 st.set_page_config(page_title="Dashboard Películas", layout="wide")
 
 # Firebase
+import streamlit as st
+import firebase_admin
+from firebase_admin import credentials
+import json
+
 if not firebase_admin._apps:
-    key_dict = st.secrets["gcp_service_account"]
+    key_dict = dict(st.secrets["gcp_service_account"])
+    
+    # 🔥 Arregla el formato de la clave privada
+    key_dict["private_key"] = key_dict["private_key"].replace("\\n", "\n")
+    
     cred = credentials.Certificate(key_dict)
     firebase_admin.initialize_app(cred)
 
